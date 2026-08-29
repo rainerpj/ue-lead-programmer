@@ -1,0 +1,4 @@
+interface:
+  display_name: "UE Lead Programmer"
+  short_description: "Plan UE modules, write C++, and coordinate Blueprint delivery"
+  default_prompt: "Use $ue-lead-programmer to plan and deliver the next Unreal Engine module with clear ownership and verification."
