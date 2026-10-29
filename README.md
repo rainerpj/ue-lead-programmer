@@ -5,9 +5,9 @@ A Codex skill for leading Unreal Engine requirement intake, technical planning, 
 ## Core workflow
 
 - Classify chat-delivered requests against the live project state and design authority.
-- Require every new feature, system, module, player-facing rule, or material scope expansion to have an explicit design-document source.
-- Stop and request a product decision when the chat request is missing from, ambiguous against, or inconsistent with the design authority.
-- Produce a traceable technical proposal and obtain user acceptance before implementation begins.
+- Establish intended behavior from the user request and applicable design authority for new features and material scope expansions.
+- Resolve material product conflicts before implementation; continue independent work while decisions are pending.
+- Obtain approval for a proportionate proposal for new features or material scope expansions; continue already approved work without restarting approval.
 - Separate product decisions and game feel from technical ownership, lifecycle, interfaces, and C++ architecture.
 - Deliver exact Blueprint and asset integration instructions while protecting user-owned binary assets.
 - Report compilation, PIE, target-platform, multiplayer, presentation, and feel evidence as separate validation levels.
@@ -23,18 +23,11 @@ git clone https://github.com/rainerpj/ue-lead-programmer.git "${CODEX_HOME:-$HOM
 
 Restart or reload Codex after installation. The skill supports automatic discovery and can also be invoked explicitly as `$ue-lead-programmer`.
 
-This is currently a private repository, so cloning requires a GitHub account with repository access.
+This repository is public and can be cloned without repository membership.
 
 ## Delivery gates
 
-The module workflow uses a gated path:
-
-1. Gate 0 — requirement authority and proposal approval.
-2. Gate A — baseline and scope.
-3. Gate B — ownership and interface freeze.
-4. Gate C — C++ implementation and build evidence.
-5. Gate D — Blueprint and asset handoff.
-6. Gate E — acceptance, documentation, and scoped delivery.
+Use the smallest workflow appropriate to the change. Substantial cross-module, lifecycle, serialization, or asset-contract changes use the full module workflow; routine fixes and documentation edits use proportionate checks.
 
 The authoritative details live in `SKILL.md` and `references/module-workflow.md`.
 
@@ -47,6 +40,7 @@ ue-lead-programmer/
 |   `-- openai.yaml
 |-- references/
 |   |-- role-contract.md
+|   |-- api-verification.md
 |   |-- module-workflow.md
 |   |-- evidence-and-templates.md
 |   `-- project-adapters.md

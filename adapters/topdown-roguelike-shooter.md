@@ -4,7 +4,7 @@ Apply only when the live repository is `TopDownRoguelikeShooter` or its authorit
 
 ## Authority and routing
 
-- Read `UE_IMPLEMENTATION_PROGRESS.md` and the active `UE_DEVELOPMENT_TASK_*.md` before changing implementation.
+- Use the current section of `UE_IMPLEMENTATION_PROGRESS.md` when task status or prior decisions matter. Read the relevant active task/design sections for scope or contract decisions; routine fixes do not require the entire project history.
 - Use the project GDD/index and gameplay or development memos for design and technical decisions; do not promote implementation notes over their declared authority.
 - Keep one active UE module task when the project documents require that workflow; archive it only after the recorded acceptance gate.
 
@@ -22,9 +22,9 @@ Apply only when the live repository is `TopDownRoguelikeShooter` or its authorit
 
 ## Maintenance
 
-Apply the automatic check and synchronization process in `references/project-adapters.md` whenever this adapter is used.
+Use `references/project-adapters.md` when a confirmed durable change requires updating this adapter; routine use does not require a full audit.
 
-For this project, explicitly compare:
+When the relevant durable rule changes, verify the affected items:
 
 - the live `.uproject` EngineAssociation and build targets;
 - the existence and authority of `UE_IMPLEMENTATION_PROGRESS.md`, the active `UE_DEVELOPMENT_TASK_*.md`, the GDD/index, and gameplay/development memos;
