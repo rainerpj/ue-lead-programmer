@@ -25,6 +25,8 @@ Restart or reload Codex after installation. The skill supports automatic discove
 
 This repository is public and can be cloned without repository membership.
 
+The common implementation review gate also requires the companion `ue-gas-code-review` skill to be installed alongside this skill, with `../ue-gas-code-review/references/review-checklist.md` available. That shared checklist is maintained separately and is not included in this repository; cloning this repository alone does not install it.
+
 ## Delivery gates
 
 Use the smallest workflow appropriate to the change. Substantial cross-module, lifecycle, serialization, or asset-contract changes use the full module workflow; routine fixes and documentation edits use proportionate checks.

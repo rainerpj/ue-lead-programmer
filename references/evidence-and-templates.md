@@ -145,6 +145,19 @@ Use when design and implementation need one traceable interface:
 
 ## Blueprint and asset handoff
 
+### Handoff baseline and execution walkthrough
+
+Before writing, establish which affected assets/functions already exist from current evidence. For implemented graphs, identify the retained entry, exact insertion/replacement point, and removed chain; for unimplemented graphs, give only the final construction steps. Use actual class/asset names. Keep one current instruction source and link shared procedures instead of duplicating them across supplements.
+
+Before delivery, walk the affected instructions from the recipient's current baseline to an observable result:
+
+- Can the stated variable type actually be selected in Blueprint, and is the node really Pure or executable? Verify reflection flags, actual event/function context, node overload, target and relevant pins; an EventGraph cannot use function locals. Mark unavailable evidence explicitly instead of inventing the editor result.
+- Are required Class Defaults, inherited/instance overrides, component settings and asset assignments included? Trace the changed gate with existing asset values, not only ideal new defaults. Inspect only assets/settings affected by the change; summarize broad migration scope when all instances cannot be checked.
+- Does each new helper have a real caller at the specified branch, with result/failure propagation? Trace initialization, activation, retry and teardown as applicable. An available function is not a connected workflow, and “retry supported” requires a trigger that can still execute after failure.
+- Are explanations consistent with the actual branches and supported node outputs? Apply the shared necessity review to the resulting graph, including configuration/record fields and duplicated cleanup. Preserve compact comparisons and the formatting rules below; precision does not require expanding every trivial operator.
+
+Fix known missing steps before calling the affected handoff executable. Report the walkthrough as static inspection unless editor operations were actually performed. Link/format validation alone does not satisfy this walkthrough.
+
 ### Handoff formatting rules
 
 Apply these rules to Blueprint, editor, build, and validation handoffs:
@@ -152,12 +165,16 @@ Apply these rules to Blueprint, editor, build, and validation handoffs:
 - Write ordinary instructions and headings in Chinese; preserve exact API, node, pin, type, variable, and asset names.
 - Separate actions from cautions and explanations. For longer documents, use distinct `操作步骤` and `注意事项` sections. For short handoffs or cautions tied to a specific step, use a separate `> **注意（步骤 N）：** ...` block outside the numbered action text. Do not rely on color alone.
 - Number actions in execution order. Each step identifies where to operate, what to do, exact settings or connections, and the expected result where useful. Keep background, limitations, and pitfalls out of the action sequence.
+- For Blueprint wiring, use numbered steps followed by indented `text` code blocks with arrow connections and explicit branch paths. Put data-pin sources and defaults beside the receiving node. Keep cautions in separate prose or callouts. Do not replace this format with node-by-node tables unless the user explicitly requests tables; asset, variable, and signature inventories may still use tables.
+- Prefer compact expressions for ordinary comparisons (`==`, `!=`, `>`, `<`, `>=`, `<=`), arithmetic, and Boolean conditions. Write `Branch(CurrentTarget == Entry.InTarget)` or `Branch(Distance < MinDistance)` directly; do not separately list Equal/Less nodes, A/B pins, Return Value, and Branch.Condition for the same expression. Likewise, use `Set Count = Count + 1` and `Branch(A AND B)` when types and operands are clear. These are wiring shorthand, not new helper functions or executable code.
+- Expand a data chain only when it resolves a real ambiguity: a special equality/tolerance node, overload or conversion, non-obvious output pin, or evaluation/lifetime ordering. Boolean shorthand does not imply Blueprint short-circuit evaluation; retain separate validity branches before dereferencing an object. Continue to name exact custom functions, target references, important parameters, and True/False destinations.
+- Preserve the established wiring format when revising a section. If the user has not implemented it yet, present the final instructions directly rather than adding old-node deletion/migration steps.
 - Put prerequisites before the steps. Place any caution that must be read before an action ahead of that action or in the prerequisites, with a reference to its step number; do not bury it at the end.
 - Keep acceptance checks and verification status in their own section. Distinguish checks the recipient must perform from evidence already obtained.
 - The lead reviews this separation as part of handoff review; return mixed action/caution prose to the author for correction.
 
-```markdown
-# Blueprint Handoff <ID>
+````markdown
+# 蓝图交接：<功能名称>
 
 ## 前置条件与交接范围
 - Required parent class/component/interface:
@@ -178,12 +195,34 @@ Apply these rules to Blueprint, editor, build, and validation handoffs:
 - Caller, responsibility, side effects, failure, and cleanup:
 
 ## 操作步骤
-1. <打开的资产/图表；创建或配置动作；准确名称与设置；预期结果。>
-2. <按依赖顺序创建辅助项，再执行引用或连线。>
 
-### 步骤 <N> 连线明细：<graph or helper>
-| Step/node ID | Exact searchable node name | Origin/backing symbol | Target and graph prerequisites | Exec connections | Data pin connections/defaults | Evidence/status |
-|---|---|---|---|---|---|---|
+操作位置：`<完整资产路径> → <函数或事件图>`。
+
+1. <按依赖顺序创建变量、辅助函数或事件；已有项直接复用，写清类型、默认值和归属。>
+2. <写明本段接线的目的，然后给出执行链；每个分支明确下一节点或结束位置。>
+
+```text
+<入口事件／函数>
+ → <准确节点名>
+   Target=<对象引用来源>
+   <输入引脚>=<源节点.输出引脚或固定值>
+ → Branch(CurrentTarget == Entry.InTarget)
+   True → <下一节点及输入>
+        → Return <输出引脚>=<值>
+   False → <失败处理节点及输入>
+         → Return <输出引脚>=<值>
+```
+
+3. <下一段接线；明确承接上一段哪个输出。简单 Pure 表达式直接写在使用处，不展开重复数据线；仅复杂或有歧义的数据链单列，且不画成执行线。>
+
+```text
+仅在需要展开复杂数据链时（Pure，无执行线）：
+<源节点.输出引脚> → <目标节点.输入引脚>
+<Pure节点.返回值> → <执行节点.数据输入>
+
+执行连接：
+<前段指定执行输出> → <下一节点>
+```
 
 ## 注意事项
 - <适用步骤编号；限制、易错点及其影响。操作前必须了解的事项应移至前置条件或对应步骤之前。>
@@ -193,9 +232,9 @@ Apply these rules to Blueprint, editor, build, and validation handoffs:
 - Normal, invalid, cancellation, interruption, cleanup, and repeat checks:
 - Evidence the programmer has supplied:
 - PIE/target evidence still owned by the user or QA:
-```
+````
 
-- Use node IDs to distinguish repeated instances; specify source node/pin -> destination node/pin for each connection.
+- Distinguish repeated nodes with local labels only when the inline condition does not already identify them; do not require global P01/D01 inventories. Use concise expressions or adjacent pin assignments to identify data sources; reserve explicit source-pin -> destination-pin lists for connections that need clarification. In execution chains, an ordinary arrow means the previous node's Then output connects to the next node's execution input; explicitly name other execution pins such as True/False, Loop Body, Completed, and Break.
 - Show branches, return paths, asynchronous completion/cancellation, bind/unbind, and lifetime cleanup where relevant.
 - Mark custom helpers as user-to-create or code-generated, with prerequisites before their first use.
 - Record node exposure/source verification separately from actual Editor search/compile confirmation.
@@ -206,8 +245,10 @@ Use one canonical name per helper throughout the file; do not interchange functi
 
 Before the first delivery and after substantive revisions, review the affected instructions and their dependencies against the rules above:
 
+Apply the `Common implementation gate` in SKILL.md as well: correctness and necessity are separate logic-review passes, shared with C++ and Blueprint implementation. This formatting/completeness check does not replace them. Use the shared review checklist's compact coverage record rather than introducing a separate handoff review ledger.
+
 - Can the recipient identify each owning asset/graph, existing versus new/replaced content, and helper/variable ownership without guessing? Create helper signatures before their first use.
-- Can each wiring instruction be followed using exact searchable nodes, distinct IDs for repeated nodes, and source node/pin -> destination node/pin connections? Check execution and data connections separately, including branch exits and return values. Flow arrows or expressions such as `A OR B` may summarize logic but do not replace the required node/pin instructions.
+- Does the wiring retain numbered steps, indented arrow blocks, and separate cautions? Are operands, types, object references, important defaults, branch exits, and return values clear? Accept ordinary comparisons, arithmetic, and Boolean expressions inline; do not require their expansion into operator nodes and pin lists merely for completeness. Check ambiguous or lifetime-sensitive data chains explicitly, without treating Boolean expressions as short-circuit guards. Remove redundant expanded data lines when the inline expression already specifies the connection; do not convert the section into node-by-node tables.
 - Are prerequisites, numbered actions, cautions, and acceptance evidence separated as specified? Check that cautions needed before an action appear before it.
 - Are unresolved API/pin details explicitly identified, and are static evidence, Editor compilation, and PIE results distinguished? Do not label unresolved steps executable or the whole handoff ready.
 
