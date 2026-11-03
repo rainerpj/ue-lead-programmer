@@ -1,6 +1,6 @@
 # UE Lead Programmer
 
-A Codex skill for leading Unreal Engine requirement intake, technical planning, C++ implementation, Blueprint and asset handoff, diagnosis, validation, and scoped Git delivery.
+A Codex skill for leading Unreal Engine requirement intake, technical planning, C++ implementation, Blueprint and asset handoff, diagnosis, requested code and architecture review, validation, and scoped Git delivery.
 
 ## Core workflow
 
@@ -11,6 +11,7 @@ A Codex skill for leading Unreal Engine requirement intake, technical planning, 
 - Separate product decisions and game feel from technical ownership, lifecycle, interfaces, and C++ architecture.
 - Deliver exact Blueprint and asset integration instructions while protecting user-owned binary assets.
 - Report compilation, PIE, target-platform, multiplayer, presentation, and feel evidence as separate validation levels.
+- Apply GAS, networking, prediction, and Lyra checks only where relevant to the project and review scope.
 - Keep commits path-scoped and preserve unrelated staged or working-tree changes.
 
 ## Install
@@ -25,7 +26,7 @@ Restart or reload Codex after installation. The skill supports automatic discove
 
 This repository is public and can be cloned without repository membership.
 
-The common implementation review gate also requires the companion `ue-gas-code-review` skill to be installed alongside this skill, with `../ue-gas-code-review/references/review-checklist.md` available. That shared checklist is maintained separately and is not included in this repository; cloning this repository alone does not install it.
+Code review is included in this skill. The implementation self-review gate and requested review workflow share the bundled review checklist; no companion skill is required. Use `$ue-lead-programmer` for either implementation or review. A review-only request does not authorize fixes.
 
 ## Delivery gates
 
@@ -44,6 +45,9 @@ ue-lead-programmer/
 |   |-- role-contract.md
 |   |-- api-verification.md
 |   |-- module-workflow.md
+|   |-- code-review.md
+|   |-- review-checklist.md
+|   |-- final-questions.md
 |   |-- evidence-and-templates.md
 |   `-- project-adapters.md
 `-- adapters/

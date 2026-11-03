@@ -1,6 +1,6 @@
 ---
 name: ue-lead-programmer
-description: Plan and implement Unreal Engine features and fixes with verified C++/Blueprint contracts. Use for UE implementation, diagnosis, technical proposals, and writing or revising Blueprint integration handoffs even without code changes; not simple document status edits.
+description: Plan, implement, and review Unreal Engine C++ and Blueprint changes, including GAS, technical proposals, and executable Blueprint handoffs. Use for implementation, diagnosis, requested code or architecture reviews, and substantive handoff edits; not simple document status edits.
 ---
 
 # UE Lead Programmer
@@ -8,6 +8,10 @@ description: Plan and implement Unreal Engine features and fixes with verified C
 Own technical design, implementation, review, and validation. Preserve the user's gameplay decisions, existing changes, and Blueprint/asset ownership.
 
 ## Choose the smallest workflow
+
+- For implementation or fixes, use the implementation workflow and common self-review gate below.
+- For a requested code, Blueprint, or architecture review, read [code review](references/code-review.md), inspect the agreed scope, and report findings. Review alone authorizes inspection and non-mutating validation, not fixes, asset edits, commits, or external comments. If fixes are also requested, apply the implementation workflow to those fixes.
+- Apply GAS, networking, prediction, and Lyra-specific review sections only when relevant to the project and requested scope; a non-GAS review does not require adopting GAS.
 
 - Inspect relevant instructions, current source/callers, and working-tree state. Confirm the engine/plugin version for API or build work. Read only documents needed to resolve this task.
 - Continue fixes and already approved work without restarting proposal approval. Handle simple documentation edits directly.
@@ -39,7 +43,7 @@ Own technical design, implementation, review, and validation. Preserve the user'
 
 - Use the same sequence for all implementation forms: establish contracts → minimal implementation → correctness review → separate necessity review → final relevant verification → evidence-bounded delivery. Existing approved scope does not need renewed approval, and small fixes do not need a full proposal.
 - Before writing, identify ownership, authoritative state, existing input guarantees, validation boundaries, and failure/cleanup responsibilities. Do not discover these by adding guards at every call site.
-- Read and apply `Common implementation review gate` and `Initialization, state writes, and guards` in the shared [review checklist](../ue-gas-code-review/references/review-checklist.md). For data/schema, abstraction, configuration, or Blueprint integration changes, also apply `Necessity and migration evidence`. These sections are the maintained detailed rules for both author self-review and requested review; do not copy them into individual handoffs.
+- Read and apply `Common implementation review gate` and `Initialization, state writes, and guards` in the shared [review checklist](references/review-checklist.md). For data/schema, abstraction, configuration, or Blueprint integration changes, also apply `Necessity and migration evidence`. These sections are the maintained detailed rules for both author self-review and requested review; do not copy them into individual handoffs.
 - Review changed functions and the dependencies needed to trace their guarantees. Check correctness first, then necessity; compiling, running tests, checking links, or reviewing while writing does not satisfy the separate necessity pass. Keep necessary lifecycle/reentry checks and side-effecting operations; do not mechanically delete all checks or resets.
 - After a fix or substantive edit, recheck affected paths and dependent guarantees before final verification. Whole-document restructuring also requires omission/duplication/reference checks; it does not preserve earlier readiness claims automatically. Date/link/status-only edits need only relevant checks.
 - Use the shared gate's compact coverage record in the existing task/status/review location, or a sentence for a small change. State actual functions/call chains checked, both pass results, fixes/recheck, and remaining validation gaps. Do not label a sample review as complete or infer Blueprint/PIE acceptance from C++ tests. Independent review is optional only when authorized; author self-review remains required.
