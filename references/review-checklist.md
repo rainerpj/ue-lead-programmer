@@ -20,6 +20,23 @@ Only call the stated scope reviewed when both passes are complete and unresolved
 
 ## Responsibility and reuse
 
+### Project-owned shared capability index
+
+Apply when adding or changing classes, functions, or Blueprint flows, and when creating, extracting, changing, or retiring project-owned shared libraries and reusable entry points.
+
+- Keep one concise index in the project's existing architecture or development documentation. If no suitable home exists, create a small project document following repository conventions when registering the first relevant shared capability. Point to its location from the project-level `AGENTS.md`; use the established project instruction entry point if the repository uses another convention. Keep project-specific entries out of this reusable skill and do not create a second progress/status authority.
+- On creating or extracting a shared capability, register its entry point, purpose and applicability, definition location, and a representative actual caller. Update affected rows when contracts or locations change. Mark retired entries with their replacement when needed for migration; do not present them as available. Maintain only task-relevant entries rather than requiring a whole-project inventory.
+
+| 公共库／入口 | 用途与适用条件 | 定义位置 | 代表性调用位置 |
+|---|---|---|---|
+| 库名及函数或节点名 | 解决的问题、适用前提及重要限制 | 源文件与符号，或蓝图资产与函数路径 | 实际调用类／函数／图表；尚未接入则明确注明 |
+
+- Before implementation, consult relevant index rows, then verify the current implementation and representative callers for parameter/result semantics, side effects, ownership, and lifecycle. Search by responsibility and behavior as well as names. A missing or incomplete index does not prove that no reusable implementation exists; perform a focused source/asset search. Keep signatures and implementation details in their owning source or Blueprint rather than copying them into the table.
+- Call an existing capability when its contract fits. For a partial fit, assess a minimal extension against its existing consumers; do not force reuse across incompatible contracts or add a forwarding wrapper merely to appear compliant. Explain a concrete mismatch when retaining separate behavior.
+- Before delivery, trace the affected new or changed callers to confirm applicable shared entry points are actually used and equivalent duplicate logic is not left behind. When extracting a library, verify migration of the original callers within the agreed scope as well. Registration, includes, imports, or a mention in the plan are not evidence of integration.
+- For Blueprint handoffs, identify the intended call and its wiring, but mark the caller as pending until saved-graph evidence establishes integration. Keep any pending implementation status in the existing status authority and link it if needed. No caller yet is a disclosed integration gap, not a reason to invent a caller or broaden scope without authorization.
+- Include decisive reuse or contract-mismatch evidence in the existing compact review record where material; no separate reuse report is required. Review-only tasks inspect and report missing reuse or stale entries without editing project documents or code unless authorized.
+
 ### Necessity and migration evidence
 
 Use for changed data schemas, abstractions, configuration, and Blueprint integration. Apply to affected items; do not create an exhaustive project inventory or a new mandatory report.

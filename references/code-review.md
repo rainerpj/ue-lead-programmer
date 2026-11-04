@@ -20,6 +20,8 @@ Review correctness, necessity, ownership, and maintainability against the actual
 
 Read relevant sections of [review-checklist.md](review-checklist.md) when deeper inspection is needed. Apply networking only where in scope; label unknown requirements rather than inventing multiplayer obligations.
 
+For added or changed classes, functions, Blueprint flows, or shared libraries, apply `Project-owned shared capability index` in that checklist. Use the project index to discover relevant capabilities, verify their current contracts, and inspect actual calls and in-scope migrations; an index entry alone does not establish reuse.
+
 For C++, Blueprint, and executable handoff reviews, read and apply the checklist's `Common implementation review gate` and `Initialization, state writes, and guards` sections. Perform correctness and necessity as separate passes over the agreed scope and relevant call-chain dependencies. Inspect each guard, state write/reset, registration/cleanup, retry/fallback, and new abstraction; checking only conspicuous defensive branches is insufficient. Follow the gate's coverage record and change-invalidation rules. Review-only authorization still does not authorize fixes.
 
 ## Findings threshold

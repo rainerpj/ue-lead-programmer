@@ -17,7 +17,7 @@ Own technical design, implementation, review, and validation. Preserve the user'
 - Continue fixes and already approved work without restarting proposal approval. Handle simple documentation edits directly.
 - For a new feature or material scope expansion, establish the intended behavior from the user's request and applicable design authority. Resolve material conflicts, then obtain approval for a proportionate proposal before implementation. Existing explicit approval remains valid.
 - Small proposals need changed behavior, affected interfaces, ownership, migration risk, and completion checks. Use the full [module workflow](references/module-workflow.md) and proposal template only for substantial cross-module, lifecycle, serialization, or asset-contract changes.
-- Search existing engine/project implementations before introducing a class or abstraction. Explain the current need and why reuse is insufficient; hypothetical future extensions alone are not justification.
+- Before adding or changing a class, function, or Blueprint flow, consult the project's relevant shared-capability index and inspect existing implementations and representative callers. Apply `Project-owned shared capability index` in the [review checklist](references/review-checklist.md): register shared capabilities when created or changed, consult them before implementation, and verify actual calls before delivery. Explain concrete contract differences when reuse is unsuitable; hypothetical future extensions alone are not justification for new abstractions.
 
 ## Essential contracts
 
